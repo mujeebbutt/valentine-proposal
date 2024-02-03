@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Prank</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #ffebcd; /* Romantic look - Burlywood color */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #valentine-container {
+            width: 80%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #yes-button {
+            background-color: #32CD32; /* Green color for Yes */
+        }
+
+        #no-button {
+            background-color: #FF4500; /* Red color for No */
+        }
+
+        #prank-message {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        #celebration-animation {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="valentine-container">
+    <h1>Madad, will you be my valentine?</h1>
+    <button id="yes-button" onclick="celebrate()">Yes</button>
+    <button id="no-button" onclick="prank()">No</button>
+    <div id="prank-message"></div>
+    <img id="celebration-animation" src="C:\Users\Mujeeb\Downloads\R.gif" alt="Celebration Animation">
+</div>
+
+<script>
+    let noButtonClicks = 0;
+    let yesButtonClicked = false;
+
+    const prankMessages = [
+        "Please, click Yes!",
+        "I said click Yes!",
+        "Are you dumb?",
+        "Are you mad?",
+        "Go click the Yes button, you are a donkey!"
+    ];
+
+    function prank() {
+        if (yesButtonClicked) {
+            resetNoButtonProperties();
+        } else {
+            const messageIndex = noButtonClicks % prankMessages.length;
+
+            // Shuffle prank messages for variety
+            const shuffledMessages = prankMessages.slice().sort(() => Math.random() - 0.5);
+
+            document.getElementById('prank-message').innerText = shuffledMessages[messageIndex];
+            document.getElementById('no-button').style.fontSize = `${20 + (noButtonClicks * 2)}px`;
+            document.getElementById('no-button').innerText = `No ${"!".repeat(noButtonClicks)}`;
+
+            noButtonClicks++;
+
+            // Use a delay and call prank() again for a never-ending loop
+            setTimeout(prank, 1000);
+        }
+    }
+
+    function celebrate() {
+        yesButtonClicked = true;
+        resetNoButtonProperties();
+        document.getElementById('celebration-animation').style.display = 'block';
+        // You can add more animations or actions here for celebration
+    }
+
+    function resetNoButtonProperties() {
+        noButtonClicks = 0;
+        document.getElementById('prank-message').innerText = "";
+        document.getElementById('no-button').style.fontSize = '18px';
+        document.getElementById('no-button').innerText = 'No';
+        yesButtonClicked = false;
+    }
+</script>
+
+</body>
+</html>
